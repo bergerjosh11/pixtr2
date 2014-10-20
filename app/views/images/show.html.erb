@@ -1,0 +1,46 @@
+<h1>The <%= @image.name %> Image</h1>
+
+<%= image_tag @image.url %>
+
+<br>
+<div>
+  <%= render @image.comments.by_most_recent %>
+</div>
+
+<div>
+  <%= form_for [@image, @comment], data: {confirm: "Are you sure?"} do |form| %>
+    <div>
+    <%= form.label :content, "Comment: " %>
+    <%= form.text_area :content %>
+    </div>
+    <p> </p>
+    <div>
+    <%= form.submit %>
+    </div>
+  <% end %>
+</div>
+
+<br>
+
+<div>
+  <h4>Other options: </h4>
+  <ul>
+    <h4>
+      <li>Return to
+        <%= link_to "#{@image.gallery.name} Gallery", gallery_path(@image.gallery) %>
+      </li>
+      <br>
+      <li>Edit the
+        <%= link_to "#{@image.name} Image", edit_gallery_image_path(@image.gallery, @image) %>
+      </li>
+      <br>
+      <li> <%= button_to "I think this image ROCKS MY SOCKS OFF!", image_like_path(@image) %>
+      </li>
+      <br>
+      <li>
+        <%= button_to "Delete Image", gallery_image_path(@image.gallery, @image), method: :delete %>
+      </li>
+    </h4>
+  </ul>
+</div>
+
